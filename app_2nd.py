@@ -81,16 +81,14 @@ if st.button("✨ 幫我推薦歌曲"):
             st.warning("我不太確定你的心情，可以再多描述一點嗎？")
         else:
             candidates = songs[songs["心情"] == mood]
-        
-        # 若該分類剛好沒歌，從全體隨機挑一首
-        if len(candidates) == 0:
-            candidates = songs
-            
-        pick = candidates.sample(1).iloc[0]
-        
-        # 顯示推薦結果
-        st.info(f"🔍 偵測到你的心情偏向：**{mood}**")
-        st.success(f"### 推薦你聽：{pick['歌名']} - {pick['歌手']}")
-        
-        if '歌曲連結' in pick and pd.notna(pick['歌曲連結']):
-            st.markdown(f"🔗 [點此前往聆聽歌曲]({pick['歌曲連結']})")
+
+            if len(candidates) == 0:
+                candidates = songs
+
+            pick = candidates.sample(1).iloc[0]
+
+            st.info(f"🔍 偵測到你的心情偏向：**{mood}**")
+            st.success(f"### 推薦你聽：{pick['歌名']} - {pick['歌手']}")
+
+            if '歌曲連結' in pick and pd.notna(pick['歌曲連結']):
+                st.markdown(f"🔗 [點此前往聆聽歌曲]({pick['歌曲連結']}")
